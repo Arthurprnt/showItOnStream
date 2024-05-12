@@ -40,35 +40,35 @@ setInterval(() => {
                         document.body.style.backgroundSize = `${newWidth}px ${newHeight}px`;
                     });
                     sleep(100).then(document.body.style.backgroundImage = `url(${data.atta})`);
-                } else if (data.type.startsWith("video")) {
-                    document.getElementById("vid").type = data.type;
-                    document.getElementById("vid").src = data.atta;
-                }
-            }
-            if (data.atta !== undefined && data.type.startsWith("video")) {
-                var duration;
-                var vid = document.getElementById("vid");
-                vid.pause();
-                vid.currentTime = '0';
-                vid.onloadedmetadata = function() {
-                    duration = Math.round(this.duration*1000);
                     document.getElementById("site").style.display = "block";
-                    vid.play();
-                    virtualpointer.move_to_element_and_click(document.getElementById("btn"), 0);
-                    sleep(duration).then(() => {
+                    sleep(4500).then(() => {
                         document.getElementById("site").style.display = "none";
                         document.body.style.backgroundImage = `url()`;
-                        document.getElementById("vid").type = "";
-                        document.getElementById("vid").src = "";
-                        document.getElementById("vid").muted = true;
                     });
-                };
-            } else {
-                document.getElementById("site").style.display = "block";
-                sleep(4500).then(() => {
-                    document.getElementById("site").style.display = "none";
-                    document.body.style.backgroundImage = `url()`;
-                });
+                } else if (data.type.startsWith("video")) {
+                    var duration;
+                    var vid = document.getElementById("vid");
+                    vid.type = data.type;
+                    vid.src = data.atta;
+                    vid.pause();
+                    vid.currentTime = '0';
+                    vid.onloadedmetadata = function() {
+                        if (vid.videoWidth > 1330) {
+                            vid.width = 1330;
+                        }
+                        duration = Math.round(this.duration*1000);
+                        document.getElementById("site").style.display = "block";
+                        vid.play();
+                        virtualpointer.move_to_element_and_click(document.getElementById("btn"), 0);
+                        sleep(duration).then(() => {
+                            document.getElementById("site").style.display = "none";
+                            document.body.style.backgroundImage = `url()`;
+                            vid.type = "";
+                            vid.src = "";
+                            vid.muted = true;
+                        });
+                    };
+                }
             }
         }
     }
