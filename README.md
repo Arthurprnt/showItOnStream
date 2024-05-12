@@ -30,3 +30,9 @@ If so, you've successfully set-up the tool. Now you'll just need to add in obs.
 The step to follow to use the tool are very simple:
 - Add browser source in obs with the link YOUR_IP:3000
 - Set the the source size to 1920x1080
+- You can check the `Control audio via OBS` if you want to reduce the output volume
+- Then, it should look like this:
+
+![obs](https://github.com/Arthurprnt/showItOnStream/assets/93857989/18ca2e5f-5cd2-4b03-966a-2bb0b0292d96)
+
+You're all done, enjoy the tool !
