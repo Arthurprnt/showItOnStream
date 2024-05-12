@@ -41,7 +41,7 @@ setInterval(() => {
                     });
                     sleep(100).then(document.body.style.backgroundImage = `url(${data.atta})`);
                     document.getElementById("site").style.display = "block";
-                    sleep(4500).then(() => {
+                    sleep(5000).then(() => {
                         document.getElementById("site").style.display = "none";
                         document.body.style.backgroundImage = `url()`;
                     });
@@ -69,6 +69,15 @@ setInterval(() => {
                         });
                     };
                 }
+            } else {
+                document.getElementById("legende").innerHTML = data.txt;
+                document.getElementById("pseudo").innerHTML = data.pseudo;
+                document.getElementById("image").src = data.pdp;
+                document.getElementById("site").style.display = "block";
+                sleep(5000).then(() => {
+                    document.getElementById("site").style.display = "none";
+                    document.body.style.backgroundImage = `url()`;
+                });
             }
         }
     }
