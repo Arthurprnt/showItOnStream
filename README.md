@@ -19,8 +19,11 @@ Please note that to use this tool you'll need a discord bot (you can create one 
 - Install nodejs v20.12.2 or higher
 - Run `npm i` in the folder where you extracted the files
 - Set your discord bot token in the `config.json` file
-- Also put the discord channel id where you want to send the messages and files
+- Also put the discord channel id where you want to send the messages and files (to get it right click on the channel while having your account in dev mode and select `Copy Channel ID`)
+
+![image](https://github.com/Arthurprnt/showItOnStream/assets/93857989/1c182eb4-d52a-4c6c-ae6b-4a4df55c34f6)
 - Run `node index` in the same folder as before and you should see something like that:
+
 ![preview](https://github.com/Arthurprnt/showItOnStream/assets/93857989/201407a5-d181-4c84-8ef0-a03815429093)
 
 If so, you've successfully set-up the tool. Now you'll just need to add in obs.
