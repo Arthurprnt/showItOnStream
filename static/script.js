@@ -19,7 +19,7 @@ setInterval(() => {
     fetch('liste.json')
     .then(response => response.json())
     .then(data => {
-        if(JSON.stringify(data) !== JSON.stringify(lastdata)) {
+        if(JSON.stringify(data) !== JSON.stringify(lastdata) && Date.now()-data.date < 5000) {
             lastdata = data;
             document.getElementById("legende").innerHTML = data.txt;
             document.getElementById("pseudo").innerHTML = data.pseudo;

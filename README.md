@@ -46,5 +46,6 @@ If you checked `Control audio via OBS` you'll have some extra steps to still lis
 
 ![advanced](https://github.com/Arthurprnt/showItOnStream/assets/93857989/792d82c8-e82b-4ef8-8bbf-2fa0da51e4f6)
 
+At this time, the tool only support images and videos sent as attachment. That mean the gifs sent will be shown as text.
 
 You're all done, enjoy the tool !

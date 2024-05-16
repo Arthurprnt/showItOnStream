@@ -5,7 +5,7 @@ const { token, channelId } = require("./config.json");
 const axios = require("axios");
 const fs = require("fs");
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const app = express();
 const port = 3000;
@@ -56,13 +56,15 @@ client.on('messageCreate', async message => {
                 atta: fichier,
                 pdp: pdp,
                 pseudo: pseudo,
-                type: type
+                type: type,
+                date: Date.now()
             };
         } else {
             newJSON = {
                 txt: legende,
                 pdp: pdp,
-                pseudo: pseudo
+                pseudo: pseudo,
+                date: Date.now()
             };
         }
         delay(10);
