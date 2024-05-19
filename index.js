@@ -4,6 +4,8 @@ const path = require('path');
 const { token, channelId } = require("./config.json");
 const axios = require("axios");
 const fs = require("fs");
+const { createCanvas, loadImage, registerFont } = require("canvas");
+const sharp = require("sharp")
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -47,33 +49,76 @@ client.on('messageCreate', async message => {
         })
         var pdp = message.author.avatarURL();
         var pseudo = message.author.globalName;
-        const jsonString = fs.readFileSync("./static/liste.json");
-        const file_liste = JSON.parse(jsonString);
-        let newJSON;
-        if (ind > 0) {
-            newJSON = {
-                txt: legende,
-                atta: fichier,
-                pdp: pdp,
-                pseudo: pseudo,
-                type: type,
-                date: Date.now()
-            };
+
+        const canvas = createCanvas(1900, 155);
+        const ctx = canvas.getContext("2d");
+        registerFont('./static/Montserrat-ExtraBold.ttf', { family: 'Mont' })
+        ctx.font = '35px Mont';
+        ctx.fillStyle = "#ffffff";
+        ctx.strokeStyle = "#000000"
+        ctx.lineWidth = 1;
+        var txtSize = ctx.measureText(pseudo).width;
+        let dx;
+        if(txtSize > 100) {
+            dx = 0;
         } else {
-            newJSON = {
-                txt: legende,
-                pdp: pdp,
-                pseudo: pseudo,
-                date: Date.now()
-            };
+            dx = 50-txtSize/2;
         }
-        delay(10);
-        fs.writeFile('./static/liste.json', JSON.stringify(newJSON), err => {
-            if (err) {
-                console.log("Erreur lors de l'ajout de l'element à la liste", err)
+        ctx.fillText(pseudo, dx, 140);
+        ctx.strokeText(pseudo, dx, 140);
+
+        const imageResponse = await axios.get(pdp, {
+            responseType: 'arraybuffer',
+        });
+        const img = await sharp(imageResponse.data).toFormat('png').toBuffer();
+        loadImage(img).then((canvasImage) => {
+            let dx;
+            if(100 > txtSize) {
+                dx = 0;
             } else {
-                console.log('Element ajouté à la liste avec succès')
+                dx = txtSize/2-50;
             }
+            const circle = {
+                x: dx+50,
+                y: 50,
+                radius: 50,
+            }
+            
+            ctx.beginPath();
+            ctx.arc(circle.x, circle.y, circle.radius, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.clip();
+
+            const hsx = circle.radius;
+            const hsy = circle.radius;
+            ctx.drawImage(canvasImage, circle.x - hsx,circle.y - hsy,hsx * 2, hsy * 2);
+
+            let newJSON;
+            if (ind > 0) {
+                newJSON = {
+                    txt: legende,
+                    atta: fichier,
+                    pdp: canvas.toDataURL(),
+                    pseudo: pseudo,
+                    type: type,
+                    date: Date.now()
+                };
+            } else {
+                newJSON = {
+                    txt: legende,
+                    pdp: canvas.toDataURL(),
+                    pseudo: pseudo,
+                    date: Date.now()
+                };
+            }
+            delay(10);
+            fs.writeFile('./static/liste.json', JSON.stringify(newJSON), err => {
+                if (err) {
+                    console.log("Erreur lors de l'ajout de l'element à la liste", err)
+                } else {
+                    console.log('Element ajouté à la liste avec succès')
+                }
+            })
         })
     }
 })

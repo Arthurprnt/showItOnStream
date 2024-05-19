@@ -28,15 +28,15 @@ video {
 }
 
 .pdp img {
-    width: 80px;
-    height: 80px;
+    width: 1900px;
+    height: 155px;
 }
 
 .legende {
     position: fixed;     
     text-align: center;
     font-family: Montserrat, Arial, Helvetica, sans-serif; 
-    font-size: 50px;   
+    font-size: 70px;   
     bottom: 0px; 
     width: 100%;
     color: white;

@@ -22,20 +22,19 @@ setInterval(() => {
         if(JSON.stringify(data) !== JSON.stringify(lastdata) && Date.now()-data.date < 5000) {
             lastdata = data;
             document.getElementById("legende").innerHTML = data.txt;
-            document.getElementById("pseudo").innerHTML = data.pseudo;
             document.getElementById("image").src = data.pdp;
             if (data.atta !== undefined) {
                 if (data.type.startsWith("image")) {
                     getMetaImage(data.atta, (err, img) => {
                         let newHeight = img.naturalHeight;
                         let newWidth = img.naturalWidth;
-                        if (newHeight > 750) {
-                            newHeight = 750;
-                            newWidth = img.naturalWidth*750/img.naturalHeight;
+                        if (newHeight > 565) {
+                            newHeight = 565;
+                            newWidth = img.naturalWidth*565/img.naturalHeight;
                         }
-                        if(newWidth > 1330) {
-                            newWidth = 1330;
-                            newHeight = img.naturalHeight*1330/img.naturalWidth;
+                        if(newWidth > 1000) {
+                            newWidth = 1000;
+                            newHeight = img.naturalHeight*1000/img.naturalWidth;
                         }
                         document.body.style.backgroundSize = `${newWidth}px ${newHeight}px`;
                     });
@@ -53,8 +52,8 @@ setInterval(() => {
                     vid.pause();
                     vid.currentTime = '0';
                     vid.onloadedmetadata = function() {
-                        if (vid.videoWidth > 1330) {
-                            vid.width = 1330;
+                        if (vid.videoWidth > 1000) {
+                            vid.width = 1000;
                         }
                         duration = Math.round(this.duration*1000);
                         document.getElementById("site").style.display = "block";
@@ -71,7 +70,6 @@ setInterval(() => {
                 }
             } else {
                 document.getElementById("legende").innerHTML = data.txt;
-                document.getElementById("pseudo").innerHTML = data.pseudo;
                 document.getElementById("image").src = data.pdp;
                 document.getElementById("site").style.display = "block";
                 sleep(5000).then(() => {
